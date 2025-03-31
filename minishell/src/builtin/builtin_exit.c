@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:02:03 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 16:36:13 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:42:44 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 #include <errno.h>
 #include "minishell.h"
 
-int	builtin_exit(char **argv, t_context *ctx);
+int	builtin_exit(char **argv, t_context *ctx, t_node *node);
 
-int	builtin_exit(char **argv, t_context *ctx)
+int	builtin_exit(char **argv, t_context *ctx, t_node *node)
 {
 	long	res;
 	char	*endptr;
 
-	write(1, "exit\n", 6);
+	if (node->process_pid != 0)
+		write(1, "exit\n", 6);
+	//free_node(node);
 	if (argv[1] == NULL)
 		exit(ctx->last_status);
 	errno = 0;

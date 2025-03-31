@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:25:41 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/28 10:06:04 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:46:26 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	exec_builtin(t_node *node, t_context *ctx)
 	do_redirect(node->cmd_node->redirects_node, ctx);
 	argv = token_list_to_argv(node->cmd_node->args_token);
 	if (ft_strcmp(argv[0], "exit") == 0)
-		status = builtin_exit(argv, ctx);
+		status = builtin_exit(argv, ctx, node);
 	else if (ft_strcmp(argv[0], "export") == 0)
 		status = builtin_export(argv, ctx);
 	else if (ft_strcmp(argv[0], "unset") == 0)

@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 22:15:43 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 14:21:02 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 17:48:00 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	builtin_export(char **argv, t_context *ctx)
 		}
 		i++;
 	}
+	printf("EXPORTed\n");
 	return (status);
 }
 

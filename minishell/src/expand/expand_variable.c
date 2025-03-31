@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:21:21 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 17:29:59 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:29:26 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	expand_variable_str(char **dst, char **rest, char *p, t_context *ctx)
 	append_char(&variable_name, *p++);
 	while (is_alpha_num_under(*p))
 		append_char(&variable_name, *p++);
-	value = xgetenv(variable_name, ctx);
+	value = xgetenv(variable_name, ctx->envmap);
 	free(variable_name);
 	variable_name = NULL;
 	if (value)

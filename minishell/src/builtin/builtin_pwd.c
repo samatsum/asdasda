@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:45:42 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 14:20:22 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:27:44 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	builtin_pwd(char **argv, t_context *ctx)
 	char	cwd[PATH_MAX];
 
 	(void)argv;
-	pwd = xgetenv("PWD", ctx);
+	pwd = xgetenv("PWD", ctx->envmap);
 	if (pwd == NULL || !equal_to_cwd(pwd))
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)

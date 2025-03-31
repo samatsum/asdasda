@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:24:53 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 17:30:46 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:27:56 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	builtin_cd(char **argv, t_context *ctx)
 		xperror2("cd", "too many arguments");
 		return (1);
 	}
-	pwd = xgetenv("PWD", ctx);
+	pwd = xgetenv("PWD", ctx->envmap);
 	update_oldpwd(pwd, ctx);
 	if (set_path(path, PATH_MAX, argv[1], ctx) < 0)
 		return (1);
@@ -90,7 +90,7 @@ static int	set_path(char *path, size_t path_size, char *arg, t_context *ctx)
 
 	if (arg == NULL)
 	{
-		home = xgetenv("HOME", ctx);
+		home = xgetenv("HOME", ctx->envmap);
 		if (home == NULL)
 		{
 			xperror2("cd", "HOME not set");

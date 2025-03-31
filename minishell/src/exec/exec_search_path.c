@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:15:29 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 15:38:37 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:27:24 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static char	*search_path_mode(const char *filename_token, int mode, \
 	char	*envpath;
 	char	*dup;
 
-	envpath = xgetenv("PATH", ctx);
+	envpath = xgetenv("PATH", ctx->envmap);
 	while (envpath && *envpath)
 	{
 		set_path(path, PATH_MAX, filename_token, &envpath);

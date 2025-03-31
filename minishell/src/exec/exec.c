@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: torinoue <torinoue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 16:32:06 by torinoue         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:02:29 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,18 @@ int	exec(t_node *node, t_context *ctx)
 {
 	pid_t	last_pid;
 	int		status;
+	char	**argv;
 
 	open_redir_file(node, ctx);
-	if (node->next == NULL && is_builtin(node))
+	argv = token_list_to_argv(node->cmd_node->args_token);
+	node->process_pid = -1;
+	if (node->next == NULL && is_builtin(node) && !ft_strcmp(argv[0], "exit"))
+		status = exec_builtin(node, ctx);
+	else if (node->next == NULL && is_builtin(node) && !ft_strcmp(argv[0], "export"))
+		status = exec_builtin(node, ctx);
+	else if (node->next == NULL && is_builtin(node) && !ft_strcmp(argv[0], "cd"))
+		status = exec_builtin(node, ctx);
+	else if (node->next == NULL && is_builtin(node) && !ft_strcmp(argv[0], "unset"))
 		status = exec_builtin(node, ctx);
 	else
 	{
@@ -43,17 +52,15 @@ int	exec(t_node *node, t_context *ctx)
 /* ************************************************************************** */
 static pid_t	exec_pipeline(t_node *node, t_context *ctx)
 {
-	pid_t		pid;
-
 	if (node == NULL)
 		return (-1);
 	if (!node->cmd_node->args_token->word && node->cmd_node->args_token->next)
 		node->cmd_node->args_token = node->cmd_node->args_token->next;
 	prepare_pipe(node);
-	pid = fork();
-	if (pid < 0)
+	node->process_pid = fork();
+	if (node->process_pid < 0)
 		fatal_error("fork");
-	else if (pid == 0)
+	else if (node->process_pid == 0)
 	{
 		reset_signal();
 		prepare_pipe_child(node);
@@ -65,7 +72,7 @@ static pid_t	exec_pipeline(t_node *node, t_context *ctx)
 	prepare_pipe_parent(node);
 	if (node->next)
 		return (exec_pipeline(node->next, ctx));
-	return (pid);
+	return (node->process_pid);
 }
 
 /* ************************************************************************** */
@@ -82,6 +89,7 @@ static void	exec_nonbuiltin(t_node *node, t_context *ctx)
 			path = search_path(path, ctx);
 	validate_access(path, argv[0], node->cmd_node->args_token->word);
 	execve(path, argv, get_environ(ctx->envmap));
+	printf("Fail_Execve\n");
 	free_argv(argv);
 	reset_redirect(node->cmd_node->redirects_node);
 	if (path == NULL)
@@ -101,14 +109,16 @@ static void	validate_access(const char *path, const char *filename_token, \
 	if (path == NULL)
 	{
 		if (tmp != NULL)
-			err_exit(filename_token, "command not found", NOT_FOUND);
+			err_exit(filename_token, "01command not found", NOT_FOUND);
 		else
 			exit(0);
 	}
 	if (ft_strcmp(filename_token, "") == 0)
-		err_exit(filename_token, "command not found", NOT_FOUND);
+		err_exit(filename_token, "02command not found", NOT_FOUND);
 	if (ft_strcmp(filename_token, "..") == 0)
-		err_exit(filename_token, "command not found", NOT_FOUND);
+		err_exit(filename_token, "03command not found", NOT_FOUND);
+	if (ft_strcmp(filename_token, ".") == 0)
+		err_exit(filename_token, "filename argument required", 2);
 	if (access(path, F_OK) < 0)
 		err_exit(filename_token, "No such file or directory", NOT_FOUND);
 	if (stat(path, &st) < 0)

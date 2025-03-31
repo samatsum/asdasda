@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:17:25 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 17:25:44 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 19:30:30 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ struct s_node {
 	int			stashed_targetfd;
 	int			input_fd;
 	int			inter_process_pipe[2];
+	pid_t		process_pid;
 	t_token		*args_token;
 	t_token		*filename_token;
 	t_token		*delimiter_token;
@@ -130,7 +131,7 @@ int		builtin_echo(char **argv);
 int		builtin_env(char **argv, t_context *ctx);
 
 //builtin_exit.c
-int		builtin_exit(char **argv, t_context *ctx);
+int		builtin_exit(char **argv, t_context *ctx, t_node *node);
 
 //builtin_export.c
 int		builtin_export(char **argv, t_context *ctx);
@@ -262,7 +263,7 @@ void	expand(t_node *node, t_context *ctx);
 void	*xcalloc(size_t count, size_t size);
 int		xclose(int fd);
 int		xdup2(int fildes, int fildes2);
-char	*xgetenv(const char *name, t_context *ctx);
+char	*xgetenv(const char *name, t_map *envmap);
 void	*xmalloc(size_t size);
 int		xpipe(int fildes[2]);
 char	*xstrdup(const char *s1);
