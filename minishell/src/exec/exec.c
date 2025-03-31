@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/31 18:02:29 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 21:19:22 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	exec(t_node *node, t_context *ctx)
 		last_pid = exec_pipeline(node, ctx);
 		wait_pipeline(last_pid, &status);
 	}
+	free_argv(argv);
 	return (status);
 }
 

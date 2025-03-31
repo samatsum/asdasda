@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:32:54 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/31 20:50:35 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 22:56:15 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	set_name_value(t_map *envmap, const char *string, char **name, char 
 	char	*name_end;
 	char	*name_end_append;
 	char	*original_value;
+	char	*tmp_value;
 
 	name_end = ft_strchr(string, '=');
 	name_end_append = ft_strnstr(string, "+=", ft_strlen(string));
@@ -63,8 +64,20 @@ static void	set_name_value(t_map *envmap, const char *string, char **name, char 
 	{
 		*name = xstrndup(string, name_end_append - string);
 		original_value = xgetenv(*name, envmap);
-		*value = xstrdup(name_end_append + 2);
-		if (original_value)
-			*value = ft_strjoin(original_value, *value);
+		tmp_value = xstrdup(name_end_append + 2);
+		if (tmp_value[0] == '\0')
+		{
+			*value = original_value;
+			free(tmp_value);
+			tmp_value = NULL;
+		}
+		else if (original_value)
+		{
+			*value = ft_strjoin(original_value, tmp_value);
+			free(tmp_value);
+			tmp_value = NULL;
+		}
+		else
+			*value = tmp_value;
 	}
 }

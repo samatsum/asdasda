@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 12:43:31 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 20:58:33 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 22:45:42 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ static void	item_update(t_item *item, const char *value)
 	free(item->value);
 	item->value = NULL;
 	if (value != NULL)
+	{
 		item->value = xstrdup(value);
+	}
 }
 
 /* ************************************************************************** */

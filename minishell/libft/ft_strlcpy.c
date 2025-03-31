@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:44:36 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/25 22:17:08 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 22:51:03 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	src_size;
 
+	// if (src == NULL)
+	// 	exit (55);
+	
 	if (dstsize == 0)
 		return (ft_strlen(src));
 	src_size = 0;

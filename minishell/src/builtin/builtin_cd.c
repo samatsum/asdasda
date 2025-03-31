@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:24:53 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/31 19:27:56 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 21:30:37 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	builtin_cd(char **argv, t_context *ctx)
 	char	path[PATH_MAX];
 	char	*newpwd;
 
-	if (argv[2])
+	if (argv[1] && argv[2])
 	{
 		xperror2("cd", "too many arguments");
 		return (1);
