@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 13:44:27 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:44:14 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ static void	exec_nonbuiltin(t_node *node, t_context *ctx)
 			path = search_path(path, ctx);
 	validate_access(path, argv[0], node->cmd_node->args_token->word);
 	execve(path, argv, get_environ(ctx->envmap));
-	// printf("Fail_Execve\n");
 	free_argv(argv);
 	reset_redirect(node->cmd_node->redirects_node);
 	if (path == NULL)

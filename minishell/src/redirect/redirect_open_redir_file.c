@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:11:42 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 14:03:58 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:37:10 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int	open_redir_file(t_node *node, t_context *ctx)
 /* ************************************************************************** */
 int	openfd(t_node *node, t_context *ctx)
 {
-	if (!node->filename_token || !node->filename_token->word)
-		return (-1);
+	if (node->kind != NODE_REDIR_HEREDOC)
+		if (!node->filename_token || !node->filename_token->word)
+			return (-1);
 	if (node->kind == NODE_REDIR_OUT)
 		return (open(node->filename_token->word, \
 			O_CREAT | O_WRONLY | O_TRUNC, 0644));

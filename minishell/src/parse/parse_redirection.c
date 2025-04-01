@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:51:36 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 14:03:06 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:10:06 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_node	*redirect_out(t_token **rest, t_token *tok)
 
 	node = new_node(NODE_REDIR_OUT);
 	node->filename_token = tokdup(tok->next);
+	node->filename_token->original_word = tok->next->original_word;
 	node->targetfd = STDOUT_FILENO;
 	*rest = tok->next->next;
 	return (node);
@@ -37,6 +38,7 @@ t_node	*redirect_in(t_token **rest, t_token *tok)
 
 	node = new_node(NODE_REDIR_IN);
 	node->filename_token = tokdup(tok->next);
+	node->filename_token->original_word = tok->next->original_word;
 	node->targetfd = STDIN_FILENO;
 	*rest = tok->next->next;
 	return (node);
