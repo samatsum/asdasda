@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 19:35:24 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 14:54:48 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:16:29 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static bool	is_ifs(char c, t_context *ctx)
 	char	*ifs;
 
 	ifs = xgetenv("IFS", ctx->envmap);
-	// printf("IFS = @%s@\n", ifs);
 	if (ifs == NULL)
 		return (is_default_ifs(c));
 	if (c == '\0')

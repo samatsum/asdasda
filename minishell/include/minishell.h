@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:17:25 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 14:01:42 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:20:00 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ enum e_token_kind {
 	TOKEN_REDIR_IN,
 	TOKEN_REDIR_APPEND,
 	TOKEN_REDIR_HEREDOC,
-	TOKEN_NEWLINE,
 	TOKEN_UNKNOWN,
 };
 typedef enum e_token_kind		t_token_kind;
@@ -77,9 +76,9 @@ struct s_token {
 struct s_node {
 	t_node_kind	kind;
 	bool		is_delim_unquoted;
-	int			targetfd;
-	int			filefd;
-	int			stashed_targetfd;
+	int			out_fd;
+	int			from_fd;
+	int			stashed_out_fd;
 	int			input_fd;
 	int			inter_process_pipe[2];
 	pid_t		process_pid;
@@ -93,10 +92,10 @@ struct s_node {
 
 // Redirecting output example
 // cmd_node          : "echo hello 1 > out"
-// targetfd         : 1
+// out_fd         : 1
 // filename_token         : "out"
-// filefd           : open("out")
-// stashed_targetfd : dup(targetfd)
+// from_fd           : open("out")
+// stashed_out_fd : dup(out_fd)
 
 # define ATTR_EXPORT 0x0000001
 

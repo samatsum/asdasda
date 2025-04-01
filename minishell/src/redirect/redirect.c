@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:10:23 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 17:27:36 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:20:00 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	do_redirect(t_node *redir, t_context *ctx)
 		return ;
 	if (is_redirect(redir))
 	{
-		if (redir->filefd == 0)
-			redir->filefd = openfd(redir, ctx);
-		redir->stashed_targetfd = stashfd(redir->targetfd);
-		xdup2(redir->filefd, redir->targetfd);
+		if (redir->from_fd == 0)
+			redir->from_fd = openfd(redir, ctx);
+		redir->stashed_out_fd = stashfd(redir->out_fd);
+		xdup2(redir->from_fd, redir->out_fd);
 	}
 	else
 		assert_error("do_redirect");
@@ -43,9 +43,9 @@ void	reset_redirect(t_node *redir)
 	reset_redirect(redir->next);
 	if (is_redirect(redir))
 	{
-		xclose(redir->filefd);
-		xclose(redir->targetfd);
-		xdup2(redir->stashed_targetfd, redir->targetfd);
+		xclose(redir->from_fd);
+		xclose(redir->out_fd);
+		xdup2(redir->stashed_out_fd, redir->out_fd);
 	}
 	else
 		assert_error("reset_redirect");

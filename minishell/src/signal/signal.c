@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:19:12 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 16:36:23 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:13:43 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	reset_signal(void)
 /* ************************************************************************** */
 static int	check_state(void)
 {
-	if (g_signal_received == 0)
-		return (0);
-	else if (g_signal_received == SIGINT)
+	if (g_signal_received == SIGINT)
 	{
 		rl_replace_line("", 0);
 		rl_done = 1;

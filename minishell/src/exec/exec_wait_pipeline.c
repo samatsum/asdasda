@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 12:52:53 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/31 16:29:43 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:38:07 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include "minishell.h"
+#include <sys/types.h>
 
 void		wait_pipeline(pid_t last_pid, int *status);
 static void	handle_signal_termination(int wstatus, int *status);
@@ -30,7 +31,10 @@ void	wait_pipeline(pid_t last_pid, int *status)
 	{
 		wait_result = wait(&wstatus);
 		if (wait_result == last_pid)
+		{
+			last_pid--;
 			handle_signal_termination(wstatus, status);
+		}
 		if (wait_result < 0)
 		{
 			if (errno == ECHILD)
@@ -56,6 +60,8 @@ static void	handle_signal_termination(int wstatus, int *status)
 		if (signal == SIGQUIT)
 			write(STDERR_FILENO, "Quit (core dumped)\n", 20);
 		*status = 0x80 + signal;
+		if (signal == SIGPIPE)
+			*status = 0;
 	}
 	else if (WIFEXITED(wstatus))
 		*status = WEXITSTATUS(wstatus);

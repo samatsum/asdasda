@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:54:56 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 17:15:01 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:12:11 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static t_node	*simple_cmd(t_token **rest, t_token *tok, t_context *ctx)
 	while (tok && !at_eof(tok) && !is_control_operator(tok))
 		append_cmd_element(node, &tok, tok, ctx);
 	if (node->args_token == NULL && node->redirects_node != NULL \
-			&& (node->redirects_node->kind == NODE_REDIR_OUT \
-				|| node->redirects_node->kind == NODE_REDIR_IN \
-					|| node->redirects_node->kind == NODE_REDIR_APPEND
-						|| node->redirects_node->kind == NODE_REDIR_HEREDOC))
+		&& (node->redirects_node->kind == NODE_REDIR_OUT \
+			|| node->redirects_node->kind == NODE_REDIR_IN \
+				|| node->redirects_node->kind == NODE_REDIR_APPEND \
+					|| node->redirects_node->kind == NODE_REDIR_HEREDOC))
 		node->args_token = new_token(xstrdup("true"), TOKEN_WORD);
 	*rest = tok;
 	return (node);

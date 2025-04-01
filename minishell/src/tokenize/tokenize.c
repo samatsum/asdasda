@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 14:11:33 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 16:17:36 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:49:46 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,5 @@ static int	set_operator_token(char *op)
 		return (TOKEN_REDIR_APPEND);
 	else if (ft_strncmp(op, "<<", 3) == 0)
 		return (TOKEN_REDIR_HEREDOC);
-	else if (ft_strncmp(op, "\n", 2) == 0)
-		return (TOKEN_NEWLINE);
 	return (TOKEN_UNKNOWN);
 }

@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 14:44:14 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:11:05 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	exec(t_node *node, t_context *ctx)
 	open_redir_file(node, ctx);
 	argv = token_list_to_argv(node->cmd_node->args_token);
 	node->process_pid = -1;
-	if (node->next == NULL && is_builtin(node) && !ft_strcmp(argv[0], "exit"))
+	if (node->next == NULL && argv[0] && !ft_strcmp(argv[0], "exit"))
 		status = exec_builtin(node, ctx);
-	else if (node->next == NULL && is_builtin(node) && !ft_strcmp(argv[0], "export"))
+	else if (node->next == NULL && argv[0] && !ft_strcmp(argv[0], "export"))
 		status = exec_builtin(node, ctx);
-	else if (node->next == NULL && is_builtin(node) && !ft_strcmp(argv[0], "cd"))
+	else if (node->next == NULL && argv[0] && !ft_strcmp(argv[0], "cd"))
 		status = exec_builtin(node, ctx);
-	else if (node->next == NULL && is_builtin(node) && !ft_strcmp(argv[0], "unset"))
+	else if (node->next == NULL && argv[0] && !ft_strcmp(argv[0], "unset"))
 		status = exec_builtin(node, ctx);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 20:44:36 by samatsum          #+#    #+#             */
-/*   Updated: 2025/04/01 14:02:24 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:20:00 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ bool	startswith(const char *s, const char *keyword)
 // 		return;
 // 	printf("%d Node (%p):\n",index, (void*)node);
 // 	printf("kind =  \x1b[41m %s \x1b[0m  \n", node_kind_to_string(node->kind));
-// 	printf("  targetfd = %d\n", node->targetfd);
-// 	printf("  filefd = %d\n", node->filefd);
-// 	printf("  stashed_targetfd = %d\n", node->stashed_targetfd);
+// 	printf("  out_fd = %d\n", node->out_fd);
+// 	printf("  from_fd = %d\n", node->from_fd);
+// 	printf("  stashed_out_fd = %d\n", node->stashed_out_fd);
 // 	// args_token の表示
 // 	if (node->args_token) {
 // 		printf("  args_token:\n");
