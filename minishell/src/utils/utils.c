@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: torinoue <torinoue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 20:44:36 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 14:21:26 by torinoue         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:02:24 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_token	*new_token(char *word, t_token_kind kind)
 
 	tok = xcalloc(1, sizeof(*tok));
 	tok->word = word;
+	tok->original_word = word;
 	tok->kind = kind;
 	tok->export_flag = 0;
 	if (tok->word)

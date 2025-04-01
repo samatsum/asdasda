@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 21:21:33 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/29 17:48:10 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 13:46:21 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	interpret(char *line, t_context *ctx)
 	t_token	*tok_head;
 	t_node	*node;
 
+	printf("\x1b[41m Tokenize Start \x1b[49m\n");
 	tok = tokenize(line, ctx);
 	free(line);
 	line = NULL;
@@ -58,12 +59,15 @@ static void	interpret(char *line, t_context *ctx)
 		return ((void)free_tok(tok_head));
 	if (ctx->syntax_error)
 		return (ctx->last_status = ERROR_TOKENIZE, (void)free_tok(tok_head));
+	printf("\x1b[41m Parse Start \x1b[49m\n");
 	node = parse_commands(&tok, tok, ctx);
 	if (ctx->syntax_error)
 		ctx->last_status = ERROR_PARSE;
 	else
 	{
+		printf("\x1b[41m Expand Start \x1b[49m\n");
 		expand(node, ctx);
+		printf("\x1b[41m Exec Start \x1b[49m\n");
 		ctx->last_status = exec(node, ctx);
 	}
 	free_node(node);

@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:11:42 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 14:13:02 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:03:58 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ int	open_redir_file(t_node *node, t_context *ctx)
 	{
 		if (node->kind == NODE_REDIR_OUT || node->kind == NODE_REDIR_APPEND \
 			|| node->kind == NODE_REDIR_IN)
-			xperror2(node->filename_token->word, NULL);
+		{
+			if (node->filename_token && node->filename_token->word)
+				xperror2(node->filename_token->word, NULL);
+			else
+				xperror2(node->filename_token->original_word, "ambiguous redirect");
+		}
 		return (-1);
 	}
 	node->filefd = stashfd(node->filefd);
@@ -46,6 +51,8 @@ int	open_redir_file(t_node *node, t_context *ctx)
 /* ************************************************************************** */
 int	openfd(t_node *node, t_context *ctx)
 {
+	if (!node->filename_token || !node->filename_token->word)
+		return (-1);
 	if (node->kind == NODE_REDIR_OUT)
 		return (open(node->filename_token->word, \
 			O_CREAT | O_WRONLY | O_TRUNC, 0644));

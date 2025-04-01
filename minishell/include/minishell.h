@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:17:25 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/31 19:30:30 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:01:42 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef enum e_node_kind		t_node_kind;
 
 struct s_token {
 	char			*word;
+	char			*original_word;
 	t_token_kind	kind;
 	t_token			*next;
 	int				export_flag;

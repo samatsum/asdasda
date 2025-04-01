@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/31 23:35:15 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 13:44:27 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	exec_nonbuiltin(t_node *node, t_context *ctx)
 }
 
 /* ************************************************************************** */
-static void	validate_access(const char *path, const char *filename_token, \
+static void	validate_access(const char *path, const char *filename_word, \
 	const char *tmp)
 {
 	struct stat	st;
@@ -110,22 +110,22 @@ static void	validate_access(const char *path, const char *filename_token, \
 	if (path == NULL)
 	{
 		if (tmp != NULL)
-			err_exit(filename_token, "01command not found", NOT_FOUND);
+			err_exit(filename_word, "01command not found", NOT_FOUND);
 		else
 			exit(0);
 	}
-	if (ft_strcmp(filename_token, "") == 0)
-		err_exit(filename_token, "02command not found", NOT_FOUND);
-	if (ft_strcmp(filename_token, "..") == 0)
-		err_exit(filename_token, "03command not found", NOT_FOUND);
-	if (ft_strcmp(filename_token, ".") == 0)
-		err_exit(filename_token, "filename argument required", 2);
+	if (ft_strcmp(filename_word, "") == 0)
+		err_exit(filename_word, "02command not found", NOT_FOUND);
+	if (ft_strcmp(filename_word, "..") == 0)
+		err_exit(filename_word, "03command not found", NOT_FOUND);
+	if (ft_strcmp(filename_word, ".") == 0)
+		err_exit(filename_word, "filename argument required", 2);
 	if (access(path, F_OK) < 0)
-		err_exit(filename_token, "No such file or directory", NOT_FOUND);
+		err_exit(filename_word, "No such file or directory", NOT_FOUND);
 	if (stat(path, &st) < 0)
 		fatal_error("fstat");
 	if (S_ISDIR(st.st_mode))
-		err_exit(filename_token, "Is a directory", PERMISSION_DENIED);
+		err_exit(filename_word, "Is a directory", PERMISSION_DENIED);
 	if (access(path, X_OK) < 0)
 		err_exit(path, "Permission denied", PERMISSION_DENIED);
 }
