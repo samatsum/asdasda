@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:02:03 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/31 20:42:44 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/04/01 12:31:56 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	builtin_exit(char **argv, t_context *ctx, t_node *node)
 
 	if (node->process_pid != 0)
 		write(1, "exit\n", 6);
-	//free_node(node);
 	if (argv[1] == NULL)
 		exit(ctx->last_status);
 	errno = 0;

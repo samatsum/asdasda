@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:32:54 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/31 22:56:15 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/31 23:35:26 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ static void	set_name_value(t_map *envmap, const char *string, char **name, char 
 		*name = xstrndup(string, name_end_append - string);
 		original_value = xgetenv(*name, envmap);
 		tmp_value = xstrdup(name_end_append + 2);
-		if (tmp_value[0] == '\0')
+		// printf("original_value = %s\n", original_value);
+		if (tmp_value[0] == '\0' && original_value)
 		{
-			*value = original_value;
+			*value = ft_strjoin(original_value, "");
 			free(tmp_value);
 			tmp_value = NULL;
 		}
